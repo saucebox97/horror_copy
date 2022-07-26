@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.horror.calendar.repository.CalendarMapper">
+
+    <resultMap id="calendarMap" type="com.project.horror.calendar.domain.Calendar">
+        <result property="calendarNo" column="calendar_no"/>
+        <result property="regDate" column="reg_date"/>
+        <result property="movieTime" column="movie_time"/>
+    </resultMap>
+
+    <insert id="save">
+        INSERT INTO tbl_calendar
+        (calendar_no, month, day, time, channel,
+        genre, limit, title, movie_time, director, content)
+        VALUES (4 || LPAD(seq_tbl_calendar.nextval, 4, '0'), #{month}, #{day}, #{time}, #{channel},
+        #{genre}, #{limit}, #{title}, #{movieTime}, #{director}, #{content})
+    </insert>
+
+    <select id="findAll" resultMap="calendarMap">
+
+                SELECT *
+                FROM tbl_calendar
+                <if test="type == 'title'">WHERE title LIKE '%' || #{keyword} || '%'</if>
+                <if test="type == 'genre'">WHERE genre LIKE '%' || #{keyword} || '%'</if>
+                <if test="type == 'content'">WHERE content LIKE '%' || #{keyword} || '%'</if>
+                <if test="type == 'tc'">
+                    WHERE title LIKE '%' || #{keyword} || '%'
+                        OR content LIKE '%' || #{keyword} || '%'
+                </if>
+                ORDER BY month, day, time
+
+    </select>
+
+    <select id="findOne" resultMap="calendarMap">
+        SELECT * FROM tbl_calendar
+        WHERE calendar_no=#{calendar_no}
+    </select>
+
+    <delete id="remove">
+        DELETE FROM tbl_calendar
+        WHERE calendar_no=#{calendar_no}
+    </delete>
+
+    <update id="modify" >
+        UPDATE tbl_calendar
+        SET month = #{month}, day = #{day}, time = #{time}, channel = #{channel}, genre = #{genre},
+        limit = #{limit}, title=#{title}, movie_time=#{movieTime}, director=#{director}, content=#{content}
+        WHERE calendar_no = #{calendarNo}
+    </update>
+
+</mapper>

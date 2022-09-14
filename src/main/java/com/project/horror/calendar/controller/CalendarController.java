@@ -25,10 +25,11 @@ public class CalendarController {
     @GetMapping("/list") // "s" 타입으로 옵션태그를 보내준다
     public String list(@ModelAttribute("s") Search search, Model model) {
 
-        log.info("controller request /board/list GET!");
+        log.info("28 controller request /board/list GET!");
 
         Map<String, Object> calendarMap = calendarService.findAllService(search);
-        log.info("return data - {}", calendarMap);
+        // service 갔다가 다시 옴
+        log.info("32 return data - {}", calendarMap);
 
         model.addAttribute("cList", calendarMap.get("cList"));
         model.addAttribute("time", calendarMap.get("time"));

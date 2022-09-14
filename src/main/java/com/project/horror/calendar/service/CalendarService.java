@@ -29,14 +29,14 @@ public class CalendarService {
 
     public Map<String, Object> findAllService(Search search) {
 
-        log.info("findAll service start");
+        log.info("32 findAll service start");
 
         Map<String, Object> findDataMap = new HashMap<>();
 
         List<Calendar> boardList = repository.findAll(search);
         // 현재시간 // 우리가보는 평소에 보는 시간을출력할려면 SimpleDateFormat써야함
         Date today = new Date();
-        System.out.println(today);
+//        System.out.println(today);
         SimpleDateFormat date = new SimpleDateFormat("yyyy년/MM월/dd일");
         SimpleDateFormat time = new SimpleDateFormat("a hh:mm:ss");
         SimpleDateFormat targetMonth = new SimpleDateFormat("MM월");
@@ -44,9 +44,9 @@ public class CalendarService {
         // 대문자 HH 하면 오전 오후없어지고 오후돼면 +12됌
         SimpleDateFormat targetTime = new SimpleDateFormat("HH:mm");
         // SimpleDateFormat 썻으니 format넣어서 출력
-        System.out.println("time = " + time.format(today));
-        System.out.println("date = " + date.format(today));
-        System.out.println("targetTime = " + targetTime.format(today));
+//        System.out.println("time = " + time.format(today));
+//        System.out.println("date = " + date.format(today));
+//        System.out.println("targetTime = " + targetTime.format(today));
         // 월 일중 10미만은 0을 붙인다
         for (Calendar c : boardList) {
         // 월에 10미만은 0을붙인다
